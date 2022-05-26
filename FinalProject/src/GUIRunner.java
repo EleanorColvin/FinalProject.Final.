@@ -2,6 +2,7 @@ public class GUIRunner
 {
     public static void main(String[] args)
     {
-        ApoyGUI gui = new ApoyGUI();
+        ApodGUI gui = new ApodGUI();
+        //MainGUI g = new MainGUI();
     }
 }

@@ -42,12 +42,13 @@ public class Networking {
         System.out.println(jsonObj);
         String title = jsonObj.getString("title");
         String dateStr = jsonObj.getString("date");
+        String explanation = jsonObj.getString("explanation");
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         Date date = sdf.parse(dateStr);
         String imgUrl = jsonObj.getString("hdurl");
         System.out.println("Parsing...");
         System.out.println("title: " + title + "date " + dateStr);
-        SpaceData data = new SpaceData(imgUrl, title, date);
+        SpaceData data = new SpaceData(imgUrl, title, explanation, date);
         return data;
     }
 }

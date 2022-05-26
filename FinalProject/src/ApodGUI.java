@@ -12,21 +12,23 @@ import java.text.SimpleDateFormat;
 
 import java.awt.Image;
 
-public class ApoyGUI implements ActionListener{
+public class ApodGUI implements ActionListener{
     private JTextField dataText;
     private Networking client;
     private JLabel img;
     private JLabel title;
     private JLabel imgDate;
+    private JLabel explanation;
     private SpaceData data;
 
-    public ApoyGUI()
+    public ApodGUI()
     {
         client = new Networking();
         dataText = new JTextField();
         img = new JLabel();
         title = new JLabel();
         imgDate = new JLabel();
+        explanation = new JLabel();
         data = null;
         setup();
     }
@@ -68,8 +70,8 @@ public class ApoyGUI implements ActionListener{
         img = new JLabel(new ImageIcon("src/placeholder.jpg"));
         panel3.add(title, BorderLayout.NORTH);
         panel3.add(imgDate, BorderLayout.NORTH);
-        panel3.add(img);
-
+        panel3.add(img, BorderLayout.CENTER);
+        panel3.add(explanation/*, BorderLayout.SOUTH*/);
         panel3.add(img, BorderLayout.SOUTH);
 
         frame.add(panel1, BorderLayout.NORTH);
@@ -87,6 +89,8 @@ public class ApoyGUI implements ActionListener{
         System.out.println("Date entered: " + strDate);
         data = client.makeAPICall(strDate);
         title.setText(data.getTitle());
+        explanation.setText(data.getExplanation());
+
         imgDate.setText("(" + strDate + ")");
         try {
             URL imageURL = new URL(data.getImgUrl());
@@ -98,12 +102,14 @@ public class ApoyGUI implements ActionListener{
             ImageIcon resizedIcon = new ImageIcon(resized);
             img.setIcon(resizedIcon);
         } catch (IOException e) { }
+
     }
 
     private void reset()
     {
         title.setText("");
         imgDate.setText("");
+        explanation.setText("");
         img.setIcon(new ImageIcon("src/placeholder.jpg"));
     }
 
