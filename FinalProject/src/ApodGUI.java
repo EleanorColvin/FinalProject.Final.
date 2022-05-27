@@ -18,8 +18,9 @@ public class ApodGUI implements ActionListener{
     private JLabel img;
     private JLabel title;
     private JLabel imgDate;
-    private JLabel explanation;
+    private JTextArea explanation;
     private SpaceData data;
+    private JFrame frame;
 
     public ApodGUI()
     {
@@ -28,14 +29,16 @@ public class ApodGUI implements ActionListener{
         img = new JLabel();
         title = new JLabel();
         imgDate = new JLabel();
-        explanation = new JLabel();
+        explanation = new JTextArea(6, 40);
         data = null;
+        frame = new JFrame();
         setup();
     }
 
     private void setup() {
         JFrame frame = new JFrame("Space App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setMinimumSize(new Dimension(400,700));
 
         JLabel head = new JLabel("Astronomy Picture of the Day");
         head.setFont(new Font("Times", Font.PLAIN, 20));
@@ -47,12 +50,12 @@ public class ApodGUI implements ActionListener{
 
         JPanel panel2 = new JPanel();
         panel2.setBackground(Color.BLUE);
-        JLabel zip = new JLabel("Enter date(YYYY-MM-DD): ");
-        zip.setForeground(Color.WHITE);
+        JLabel dateEn = new JLabel("Enter date(YYYY-MM-DD): ");
+        dateEn.setForeground(Color.WHITE);
         dataText = new JTextField(8);
         JButton search = new JButton("SEARCH");
         JButton clear = new JButton("CLEAR");
-        panel2.add(zip);
+        panel2.add(dateEn);
         panel2.add(dataText);
         panel2.add(search);
         search.setBackground(Color.BLACK);
@@ -65,19 +68,28 @@ public class ApodGUI implements ActionListener{
         clear.addActionListener(this);
 
         JPanel panel3 = new JPanel();
+        panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
+        panel3.setBackground(Color.LIGHT_GRAY);
+        explanation.setWrapStyleWord(true);
+        explanation.setEditable(false);
+        explanation.setLineWrap(true);
+        explanation.setBackground(Color.LIGHT_GRAY);
         title = new JLabel("");
         imgDate = new JLabel("");
         img = new JLabel(new ImageIcon("src/placeholder.jpg"));
-        panel3.add(title, BorderLayout.NORTH);
-        panel3.add(imgDate, BorderLayout.NORTH);
-        panel3.add(img, BorderLayout.CENTER);
-        panel3.add(explanation/*, BorderLayout.SOUTH*/);
-        panel3.add(img, BorderLayout.SOUTH);
+        img.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imgDate.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panel3.add(title);
+        panel3.add(imgDate);
+        panel3.add(img);
+        panel3.add(explanation);
 
         frame.add(panel1, BorderLayout.NORTH);
         frame.add(panel3, BorderLayout.CENTER);
-        frame.add(panel2, BorderLayout.AFTER_LAST_LINE);
+        frame.add(panel2, BorderLayout.SOUTH);
 
+        frame.setBounds(200,200,200,200);
         frame.pack();
         frame.setVisible(true);
     }
@@ -102,7 +114,7 @@ public class ApodGUI implements ActionListener{
             ImageIcon resizedIcon = new ImageIcon(resized);
             img.setIcon(resizedIcon);
         } catch (IOException e) { }
-
+frame.pack();
     }
 
     private void reset()
