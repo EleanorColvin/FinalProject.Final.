@@ -33,10 +33,10 @@ import java.text.SimpleDateFormat;
             p3.setBackground(Color.darkGray);
             p3.setForeground(Color.lightGray);
 
-            JButton opp1 = new JButton("opp1");
+            JButton opp1 = new JButton("Rover Data");
             opp1.setForeground(Color.WHITE);
             opp1.setBackground(Color.BLACK);
-            JButton opp2 = new JButton("opp2");
+            JButton opp2 = new JButton("APOD Data");
             opp2.setForeground(Color.WHITE);
             opp2.setBackground(Color.BLACK);
             p3.add(opp1);
@@ -52,7 +52,16 @@ import java.text.SimpleDateFormat;
         }
 
         public void actionPerformed(ActionEvent e) {
-            ApodGUI apod = new ApodGUI();
+            JButton button = (JButton) (e.getSource());
+            String text = button.getText();
+
+            if (text.equals("Rover Data")) {
+                RoverGUI rover = new RoverGUI();
+            }
+            else {
+                ApodGUI apod = new ApodGUI();
+            }
+
         }
 
 
