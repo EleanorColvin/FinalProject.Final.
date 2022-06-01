@@ -19,7 +19,8 @@ import java.text.SimpleDateFormat;
         private void setup()
         {
             JFrame frame = new JFrame();
-            JLabel l = new JLabel("IDK");
+            frame.setMinimumSize(new Dimension(500,700));
+            JLabel l = new JLabel("SPACE APP");
             l.setBackground(Color.darkGray);
 
             JPanel p1 = new JPanel();
@@ -27,7 +28,17 @@ import java.text.SimpleDateFormat;
             p1.setBackground(Color.lightGray);
             p1.add(l);
 
-            //JPanel p2 = new JPanel();
+            JPanel p2 = new JPanel();
+            p2.setBackground(Color.lightGray);
+
+            ImageIcon i = new ImageIcon("src/img4.jpg");
+            Image img = i.getImage();
+
+            Image resized = img.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+            ImageIcon resizedIcon = new ImageIcon(resized);
+            System.out.println(resizedIcon);
+            JLabel imgLabel = new JLabel("R" + resizedIcon);
+            p2.add(imgLabel);
 
             JPanel p3 = new JPanel();
             p3.setBackground(Color.darkGray);

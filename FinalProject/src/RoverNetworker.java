@@ -24,9 +24,9 @@ public class RoverNetworker {
     {
         System.out.println("calling Api...");
         String endPoint = "/mars-photos/api/v1/manifests/";
-        String url = baseUrl + endPoint + name + "/&api_key=" + apiKey;
+        String url = baseUrl + endPoint + name + "/?api_key=" + apiKey;
         try {
-            URI myUri = URI.create(url); // creates a URI object from the url string
+            URI myUri = URI.create(url);
             HttpRequest request = HttpRequest.newBuilder().uri(myUri).build();
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -37,40 +37,48 @@ public class RoverNetworker {
         }
     }
 
-    public RoverData makeAPICallSol(String name, int sol)
+    public String makeAPICallSol(String name, int sol)
     {
         System.out.println("calling Api...");
         String endPoint = "/mars-photos/api/v1/rovers/";
-        String url = baseUrl + endPoint + name + "/photos?sol=" + sol + "/?api_key=" + apiKey;
+        String url = baseUrl + endPoint + name + "/photos?sol=" + sol + "/&api_key=" + apiKey;
         try {
-            URI myUri = URI.create(url); // creates a URI object from the url string
+            URI myUri = URI.create(url);
             HttpRequest request = HttpRequest.newBuilder().uri(myUri).build();
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return parseData(response.body());
+            return parseSolData(response.body());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public String parseSolData(String json)
+    {
+        JSONObject jsonObj = new JSONObject(json);
+        System.out.println(jsonObj);
+        JSONObject photos = jsonObj.getJSONObject("photos");
+        String imgSrc = photos.getString("img_src");
+        System.out.println("Parsing Sol...");
+        return imgSrc;
     }
 
     public RoverData parseData(String json)
     {
         JSONObject jsonObj = new JSONObject(json);
         System.out.println(jsonObj);
-        JSONObject o = jsonObj.getJSONObject("photo_manifest");
-        String name = o.getString("name");
-        System.out.println("name" + name);
-        String launch = o.getString("launch_date");
-        System.out.println("launch" + launch);
-        int photos = o.getInt("total_photos");
-        int sol = o.getInt("max_sol");
-        JSONObject j = new JSONObject(makeAPICallSol(name, sol));
-        JSONObject p = j.getJSONObject("photos");
-        String imgSrc = p.getString("img_src");
-        System.out.println("photos" + photos);
+        JSONObject manifest = jsonObj.getJSONObject("photo_manifest");
+        String name = manifest.getString("name");
+        System.out.println("name: " + name);
+        String launch = manifest.getString("launch_date");
+        System.out.println("launch: " + launch);
+        int photos = manifest.getInt("total_photos");
+        System.out.println("photos: " + photos);
+        int sol = manifest.getInt("max_sol");
         System.out.println("Parsing...");
-        RoverData data = new RoverData(name, launch, photos);
+        String imgSrc = makeAPICallSol(name, sol);
+        RoverData data = new RoverData(name, launch, photos, imgSrc);
         return data;
     }
 }

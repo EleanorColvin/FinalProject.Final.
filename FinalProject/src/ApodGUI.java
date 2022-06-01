@@ -38,7 +38,7 @@ public class ApodGUI implements ActionListener{
     private void setup() {
         JFrame frame = new JFrame("Space App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(400,700));
+        frame.setMinimumSize(new Dimension(500,700));
 
         JLabel head = new JLabel("Astronomy Picture of the Day");
         head.setFont(new Font("Times", Font.PLAIN, 20));

@@ -13,21 +13,21 @@ import java.text.SimpleDateFormat;
 import java.awt.Image;
 
 public class RoverGUI implements ActionListener{
-    private JTextField dataText;
     private RoverNetworker client;
     private JLabel roverName;
     private JLabel launch;
     private JLabel photos;
+    private JLabel img;
     private RoverData data;
     private JFrame frame;
 
     public RoverGUI()
     {
         client = new RoverNetworker();
-        dataText = new JTextField();
         roverName = new JLabel();
         launch = new JLabel();
         photos = new JLabel();
+        img = new JLabel();
         data = null;
         frame = new JFrame();
         setup();
@@ -36,7 +36,7 @@ public class RoverGUI implements ActionListener{
     private void setup() {
         JFrame frame = new JFrame("Rover App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(400,700));
+        frame.setMinimumSize(new Dimension(500,700));
 
         JLabel head = new JLabel("Rover Data");
         head.setFont(new Font("Times", Font.PLAIN, 20));
@@ -50,7 +50,6 @@ public class RoverGUI implements ActionListener{
         JButton cur = new JButton("CURIOSITY");
         JButton opp = new JButton("OPPORTUNITY");
         JButton spi = new JButton("SPIRIT");
-        panel2.add(dataText);
         panel2.add(cur);
         cur.setBackground(Color.BLACK);
         cur.setForeground(Color.WHITE);
@@ -69,8 +68,11 @@ public class RoverGUI implements ActionListener{
         panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
         panel3.setBackground(Color.LIGHT_GRAY);
         roverName = new JLabel("");
+        roverName.setFont(new Font("Times", Font.PLAIN, 20));
         launch = new JLabel("");
         photos = new JLabel("");
+        img = new JLabel(new ImageIcon("src/placeholder.jpg"));
+        img.setAlignmentX(Component.CENTER_ALIGNMENT);
         roverName.setAlignmentX(Component.CENTER_ALIGNMENT);
         launch.setAlignmentX(Component.CENTER_ALIGNMENT);
         photos.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -89,20 +91,19 @@ public class RoverGUI implements ActionListener{
 
     private void loadData(String name) {
         data = client.makeAPICallRover(name);
-        roverName.setText(name);
-        launch.setText(data.getLaunch());
-        photos.setText("" + data.getPhotos());
-        //imgDate.setText("(" + strDate + ")");
-//        try {
-//            URL imageURL = new URL(data.getImgUrl());
-//            BufferedImage image = ImageIO.read(imageURL);
-//            ImageIcon icon = new ImageIcon(image);
-//            Image i = icon.getImage();
-//
-//            Image resized = i.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
-//            ImageIcon resizedIcon = new ImageIcon(resized);
-//            img.setIcon(resizedIcon);
-//        } catch (IOException e) { }
+        roverName.setText("ROVER: " + name);
+        launch.setText("LAUNCH: " + data.getLaunch());
+        photos.setText("TOTAL PHOTOS TAKEN: " + data.getPhotos());
+        try {
+            URL imageURL = new URL(data.getImg());
+            BufferedImage image = ImageIO.read(imageURL);
+            ImageIcon icon = new ImageIcon(image);
+            Image i = icon.getImage();
+
+            Image resized = i.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
+            ImageIcon resizedIcon = new ImageIcon(resized);
+            img.setIcon(resizedIcon);
+        } catch (IOException e) { }
         frame.pack();
     }
 
@@ -111,7 +112,7 @@ public class RoverGUI implements ActionListener{
         roverName.setText("");
         launch.setText("");
         photos.setText("");
-        //photos.setIcon(new ImageIcon("src/placeholder.jpg"));
+        img.setIcon(new ImageIcon("src/placeholder.jpg"));
     }
 
 
