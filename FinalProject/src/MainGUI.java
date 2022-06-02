@@ -18,30 +18,33 @@ import java.text.SimpleDateFormat;
 
         private void setup()
         {
-            JFrame frame = new JFrame();
-            frame.setMinimumSize(new Dimension(500,700));
+            JFrame frame = new JFrame("Space App");
+            frame.setMinimumSize(new Dimension(300,175));
             JLabel l = new JLabel("SPACE APP");
-            l.setBackground(Color.darkGray);
+            l.setForeground(Color.WHITE);
 
             JPanel p1 = new JPanel();
             p1.setForeground(Color.darkGray);
-            p1.setBackground(Color.lightGray);
+            p1.setBackground(Color.black);
             p1.add(l);
+
 
             JPanel p2 = new JPanel();
             p2.setBackground(Color.lightGray);
+            p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
 
-            ImageIcon i = new ImageIcon("src/img4.jpg");
-            Image img = i.getImage();
-
-            Image resized = img.getScaledInstance(400, 400, Image.SCALE_DEFAULT);
-            ImageIcon resizedIcon = new ImageIcon(resized);
-            System.out.println(resizedIcon);
-            JLabel imgLabel = new JLabel("R" + resizedIcon);
-            p2.add(imgLabel);
+            JTextArea introText = new JTextArea("Welcome to my space app. Here you can search for data from nasa " +
+                    "about the astronomy picture of the day or the Spirit, Curiosity, and Opportunity Rovers. Enjoy!");
+            introText.setEditable(false);
+            introText.setLineWrap(true);
+            introText.setWrapStyleWord(true);
+            introText.setBackground(Color.lightGray);
+            introText.setForeground(Color.blue);
+            introText.setAlignmentX(Component.CENTER_ALIGNMENT);
+            p2.add(introText);
 
             JPanel p3 = new JPanel();
-            p3.setBackground(Color.darkGray);
+            p3.setBackground(Color.green);
             p3.setForeground(Color.lightGray);
 
             JButton opp1 = new JButton("Rover Data");
@@ -57,6 +60,7 @@ import java.text.SimpleDateFormat;
 
 
             frame.add(p1, BorderLayout.NORTH);
+            frame.add(p2, BorderLayout.CENTER);
             frame.add(p3, BorderLayout.SOUTH);
             frame.pack();
             frame.setVisible(true);

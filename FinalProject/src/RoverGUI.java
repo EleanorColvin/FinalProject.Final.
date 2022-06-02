@@ -36,7 +36,7 @@ public class RoverGUI implements ActionListener{
     private void setup() {
         JFrame frame = new JFrame("Rover App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(500,700));
+        frame.setMinimumSize(new Dimension(500,600));
 
         JLabel head = new JLabel("Rover Data");
         head.setFont(new Font("Times", Font.PLAIN, 20));
@@ -47,6 +47,7 @@ public class RoverGUI implements ActionListener{
         panel1.add(head);
 
         JPanel panel2 = new JPanel();
+        panel2.setBackground(Color.RED);
         JButton cur = new JButton("CURIOSITY");
         JButton opp = new JButton("OPPORTUNITY");
         JButton spi = new JButton("SPIRIT");
@@ -79,6 +80,7 @@ public class RoverGUI implements ActionListener{
         panel3.add(roverName);
         panel3.add(launch);
         panel3.add(photos);
+        panel3.add(img);
 
         frame.add(panel1, BorderLayout.NORTH);
         frame.add(panel3, BorderLayout.CENTER);
@@ -95,8 +97,16 @@ public class RoverGUI implements ActionListener{
         launch.setText("LAUNCH: " + data.getLaunch());
         photos.setText("TOTAL PHOTOS TAKEN: " + data.getPhotos());
         try {
-            URL imageURL = new URL(data.getImg());
-            BufferedImage image = ImageIO.read(imageURL);
+            String imageURL = new String(data.getImg());
+            if(!imageURL.substring(0, 5).equals("https"))
+            {
+                imageURL = imageURL.substring(0, 4) + "s" + imageURL.substring(4);
+                System.out.println(imageURL);
+            }
+            URL url = new URL(imageURL);
+            System.out.println("URL: " + url);
+            BufferedImage image = ImageIO.read(url);
+            System.out.println(image);
             ImageIcon icon = new ImageIcon(image);
             Image i = icon.getImage();
 

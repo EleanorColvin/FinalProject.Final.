@@ -57,9 +57,11 @@ public class RoverNetworker {
     public String parseSolData(String json)
     {
         JSONObject jsonObj = new JSONObject(json);
-        System.out.println(jsonObj);
-        JSONObject photos = jsonObj.getJSONObject("photos");
-        String imgSrc = photos.getString("img_src");
+        //System.out.println(jsonObj);
+        JSONArray photos = jsonObj.getJSONArray("photos");
+        int idx = (int)(Math.random() * photos.length());
+        JSONObject j = photos.getJSONObject(idx);
+        String imgSrc = j.getString("img_src");
         System.out.println("Parsing Sol...");
         return imgSrc;
     }
@@ -67,7 +69,7 @@ public class RoverNetworker {
     public RoverData parseData(String json)
     {
         JSONObject jsonObj = new JSONObject(json);
-        System.out.println(jsonObj);
+        //System.out.println(jsonObj);
         JSONObject manifest = jsonObj.getJSONObject("photo_manifest");
         String name = manifest.getString("name");
         System.out.println("name: " + name);

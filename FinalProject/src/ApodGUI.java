@@ -36,7 +36,7 @@ public class ApodGUI implements ActionListener{
     }
 
     private void setup() {
-        JFrame frame = new JFrame("Space App");
+        JFrame frame = new JFrame("Apod App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500,700));
 
