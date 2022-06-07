@@ -19,7 +19,8 @@ import java.text.SimpleDateFormat;
         private void setup()
         {
             JFrame frame = new JFrame("Space App");
-            frame.setMinimumSize(new Dimension(300,175));
+            frame.setMinimumSize(new Dimension(300,185));
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             JLabel l = new JLabel("SPACE APP");
             l.setForeground(Color.WHITE);
 
@@ -33,13 +34,14 @@ import java.text.SimpleDateFormat;
             p2.setBackground(Color.lightGray);
             p2.setLayout(new BoxLayout(p2, BoxLayout.Y_AXIS));
 
-            JTextArea introText = new JTextArea("Welcome to my space app. Here you can search for data from nasa " +
-                    "about the astronomy picture of the day or the Spirit, Curiosity, and Opportunity Rovers. Enjoy!");
+            JTextArea introText = new JTextArea("Welcome to my space app! Here you can search for data from nasa " +
+                    "about the astronomy picture of the day or the Spirit, Curiosity, and Opportunity rovers. Enjoy!");
+            introText.setMargin(new Insets(10, 10, 10, 10));
             introText.setEditable(false);
             introText.setLineWrap(true);
             introText.setWrapStyleWord(true);
             introText.setBackground(Color.lightGray);
-            introText.setForeground(Color.blue);
+            introText.setForeground(Color.black);
             introText.setAlignmentX(Component.CENTER_ALIGNMENT);
             p2.add(introText);
 

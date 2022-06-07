@@ -37,8 +37,7 @@ public class ApodGUI implements ActionListener{
 
     private void setup() {
         JFrame frame = new JFrame("Apod App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setMinimumSize(new Dimension(500,700));
+        frame.setMinimumSize(new Dimension(500,750));
 
         JLabel head = new JLabel("Astronomy Picture of the Day");
         head.setFont(new Font("Times", Font.PLAIN, 20));
@@ -73,6 +72,7 @@ public class ApodGUI implements ActionListener{
         explanation.setWrapStyleWord(true);
         explanation.setEditable(false);
         explanation.setLineWrap(true);
+        explanation.setMargin(new Insets(10, 10, 10, 10));
         explanation.setBackground(Color.LIGHT_GRAY);
         title = new JLabel("");
         imgDate = new JLabel("");

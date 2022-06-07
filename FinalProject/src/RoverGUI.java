@@ -35,7 +35,6 @@ public class RoverGUI implements ActionListener{
 
     private void setup() {
         JFrame frame = new JFrame("Rover App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setMinimumSize(new Dimension(500,600));
 
         JLabel head = new JLabel("Rover Data");
@@ -101,12 +100,9 @@ public class RoverGUI implements ActionListener{
             if(!imageURL.substring(0, 5).equals("https"))
             {
                 imageURL = imageURL.substring(0, 4) + "s" + imageURL.substring(4);
-                System.out.println(imageURL);
             }
             URL url = new URL(imageURL);
-            System.out.println("URL: " + url);
             BufferedImage image = ImageIO.read(url);
-            System.out.println(image);
             ImageIcon icon = new ImageIcon(image);
             Image i = icon.getImage();
 
